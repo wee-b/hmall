@@ -1,11 +1,10 @@
 package com.hmall.item.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hmall.item.domin.dto.ItemDTO;
-import com.hmall.item.domin.dto.OrderDetailDTO;
+
+import com.hmall.api.dto.ItemDTO;
+import com.hmall.api.dto.OrderDetailDTO;
 import com.hmall.item.domin.po.Item;
-
-
 import java.util.Collection;
 import java.util.List;
 
