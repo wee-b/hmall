@@ -9,7 +9,7 @@ import com.hmall.common.domain.PageQuery;
 import com.hmall.common.utils.BeanUtils;
 
 
-import com.hmall.item.domin.po.Item;
+import com.hmall.item.domain.po.Item;
 import com.hmall.item.service.IItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

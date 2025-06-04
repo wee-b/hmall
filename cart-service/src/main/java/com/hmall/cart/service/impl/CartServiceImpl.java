@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmall.api.client.ItemClient;
 import com.hmall.api.dto.ItemDTO;
+import com.hmall.cart.config.CartProperties;
 import com.hmall.cart.domin.dto.CartFormDTO;
 import com.hmall.cart.domin.po.Cart;
 import com.hmall.cart.domin.vo.CartVO;
@@ -41,6 +42,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
 
     private final ItemClient itemClient;
 
+    private final CartProperties cartProperties;
+
 
     @Override
     public void addItem2Cart(CartFormDTO cartFormDTO) {
@@ -68,8 +71,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
     @Override
     public List<CartVO> queryMyCarts() {
         // 1.查询我的购物车列表
-//  TODO      List<Cart> carts = lambdaQuery().eq(Cart::getUserId, UserContext.getUser()).list();
-        List<Cart> carts = lambdaQuery().eq(Cart::getUserId,1L).list();
+        List<Cart> carts = lambdaQuery().eq(Cart::getUserId, UserContext.getUser()).list();
+//        List<Cart> carts = lambdaQuery().eq(Cart::getUserId,1L).list();
         if (CollUtils.isEmpty(carts)) {
             return CollUtils.emptyList();
         }
@@ -93,7 +96,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         // 2.2从实例列表中获取实例
 //        List<ItemDTO> items = itemService.queryItemByIds(itemIds);
 
-        List<ItemDTO> items = itemClient.queryItemByIds(itemIds);
+        List<ItemDTO> items = itemClient.queryItemsByIds(itemIds);
 
         if (CollUtils.isEmpty(items)) {
             return;
@@ -125,8 +128,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
 
     private void checkCartsFull(Long userId) {
         int count = lambdaQuery().eq(Cart::getUserId, userId).count();
-        if (count >= 10) {
-            throw new BizIllegalException(StrUtil.format("用户购物车课程不能超过{}", 10));
+        if (count >= cartProperties.getMaxAmount()) {
+            throw new BizIllegalException(StrUtil.format("用户购物车课程不能超过{}", cartProperties.getMaxAmount()));
         }
     }
 
