@@ -18,9 +18,7 @@
         <module name="hm-api" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="search-service" target="11" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="11" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -31,7 +29,6 @@
       <module name="hm-service" options="-parameters" />
       <module name="item-service" options="-parameters" />
       <module name="pay-service" options="-parameters" />
-      <module name="search-service" options="-parameters" />
       <module name="trade-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
